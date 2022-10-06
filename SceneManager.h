@@ -10,6 +10,7 @@ public:
 	{
 		kSceneKindTitle,
 		kSceneKindMain,
+		kSceneKindNew,
 
 		kSceneKindNum
 	}SceneKind;
@@ -29,7 +30,4 @@ private:
 	SceneKind	m_kind;
 
 	SceneBase* m_pScene;
-
-//	SceneTitle	m_title;
-//	SceneMain	m_main;
 };

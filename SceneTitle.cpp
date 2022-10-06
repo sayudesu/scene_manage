@@ -1,4 +1,6 @@
 #include "SceneTitle.h"
+#include "SceneMain.h"
+#include "SceneNew.h"
 #include "DxLib.h"
 
 void SceneTitle::init()
@@ -9,7 +11,7 @@ void SceneTitle::init()
 	m_isEnd = false;
 }
 
-void SceneTitle::update()
+SceneBase* SceneTitle::update()
 {
 	// 文字の移動
 	m_textPosY += m_textVecY;
@@ -25,13 +27,20 @@ void SceneTitle::update()
 	}
 
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if (padState & PAD_INPUT_1)
+	if (padState & PAD_INPUT_2)
 	{
-		m_isEnd = true;
+		//Mainに切り替え
+		return(new SceneMain);
 	}
+	else if ( padState & PAD_INPUT_3)
+	{
+		//Newに切り替え
+		return(new SceneNew);
+	}
+	return this;
 }
 
 void SceneTitle::draw()
 {
-	DrawString(0, m_textPosY,"タイトル画面",GetColor(255,255,255));
+	DrawString(0, m_textPosY,"タイトル画面",GetColor(GetRand(255), GetRand(255), GetRand(255)));
 }

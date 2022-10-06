@@ -1,16 +1,16 @@
 #pragma once
 #include "SceneBase.h"
 
-class SceneTitle : public SceneBase
+class SceneNew : public SceneBase
 {
 public:
-	SceneTitle() 
+	SceneNew()
 	{
 		m_textPosY = 0;
 		m_textVecY = 0;
 		m_isEnd = false;
 	}
-	virtual ~SceneTitle() {}
+	virtual ~SceneNew() {}
 
 
 	virtual void init();
@@ -24,6 +24,7 @@ private:
 	// テキスト表示位置変更
 	int m_textPosY;
 	int m_textVecY;
+	int m_textVecX;
 
 	bool m_isEnd;
 };

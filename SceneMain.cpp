@@ -1,4 +1,7 @@
 #include "SceneMain.h"
+#include "SceneTitle.h"
+#include "SceneNew.h"
+
 #include "DxLib.h"
 
 void SceneMain::init()
@@ -9,7 +12,7 @@ void SceneMain::init()
 	m_isEnd = false;
 }
 
-void SceneMain::update()
+SceneBase* SceneMain::update()
 {
 	// •¶š‚ÌˆÚ“®
 	m_textPosX += m_textVecX;
@@ -25,13 +28,16 @@ void SceneMain::update()
 	}
 
 	int padState = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if (padState & PAD_INPUT_2)
+	if (padState & PAD_INPUT_1)
 	{
-		m_isEnd = true;
+		//Main‚ÉØ‚è‘Ö‚¦
+		return(new SceneTitle);
 	}
+	
+	return this;
 }
 
 void SceneMain::draw()
 {
-	DrawString(m_textPosX, 0,"ƒƒCƒ“‰æ–Ê",GetColor(255,255,255));
+	DrawString(m_textPosX, 0,"ƒƒCƒ“‰æ–Ê",GetColor(GetRand(255), GetRand(255), GetRand(255)));
 }

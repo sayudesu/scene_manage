@@ -4,6 +4,8 @@
 #include "SceneTitle.h"
 #include "SceneMain.h"
 
+#include "SceneNew.h"
+
 SceneManager::SceneManager()
 {
 	m_kind = kSceneKindTitle;
@@ -21,6 +23,7 @@ void SceneManager::init(SceneKind kind)
 	{
 	case SceneManager::kSceneKindTitle:
 		m_pScene = new SceneTitle;
+		//m_pScene = new SceneNew;
 		break;
 	case SceneManager::kSceneKindMain:
 		m_pScene = new SceneMain;
@@ -46,29 +49,18 @@ void SceneManager::update()
 {
 	assert(m_pScene);
 	if (!m_pScene) return;
-	m_pScene->update();
+	SceneBase* pSceme = m_pScene->update();
 
-	bool isEnd = false;
-	if(m_pScene->isEnd())
+	if (pSceme != m_pScene)
 	{
-		//シーンの終了処理
+		// 前のシーンの終了処理
 		m_pScene->end();
 		delete m_pScene;
-		//次のシーンの生成、初期化
-		switch (m_kind)
-		{
-		case SceneManager::kSceneKindTitle:
-			init(kSceneKindMain);
-			break;
-		case SceneManager::kSceneKindMain:
-			init(kSceneKindTitle);
-			break;
-		case SceneManager::kSceneKindNum:
-		default:
-			assert(false);
-			break;
-		}
+
+		m_pScene = pSceme;
+		m_pScene->init();
 	}
+
 }
 
 void SceneManager::draw()
